@@ -8,104 +8,207 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { background: linear-gradient(145deg, #f7f3ec 0%, #e9e0d5 100%); font-family: 'Inter', sans-serif; color: #2c2418; padding: 24px 16px 40px; min-height: 100vh; }
-    .app-container { max-width: 600px; margin: 0 auto; background: #fffef7; border-radius: 56px; box-shadow: 0 25px 45px -12px rgba(0,0,0,0.25); overflow: hidden; }
-    .header { background: #fff9f0; padding: 28px 24px 20px; border-bottom: 1px solid #f0e4d4; text-align: center; }
-    .header h1 { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 600; color: #9b6a4c; }
-    .header h1 i { color: #c9a87b; font-size: 1.8rem; margin-right: 6px; }
-    .header p { font-size: 0.85rem; color: #7c6b58; margin-top: 8px; }
+    
+    /* Light Mode (default) */
+    :root {
+      --bg-gradient-start: #f7f3ec;
+      --bg-gradient-end: #e9e0d5;
+      --card-bg: #fffef7;
+      --header-bg: #fff9f0;
+      --text-primary: #2c2418;
+      --text-secondary: #7c6b58;
+      --border-color: #f0e4d4;
+      --accent: #9b6a4c;
+      --accent-light: #b88b62;
+      --mood-bg: #fef9f2;
+      --mood-border: #f5e9dd;
+      --comfort-bg: #ffffff;
+      --affirmation-bg: #fdf7ef;
+      --stress-bg: #faf3e9;
+      --prayer-bg: linear-gradient(115deg, #f9efe3 0%, #fff7ef 100%);
+      --widget-bg: #efe2d3;
+      --mock-widget-bg: #2c2418e0;
+      --footer-text: #9b8978;
+      --saint-bg: linear-gradient(115deg, #f5ede3 0%, #efe2d4 100%);
+      --rosary-bg: #f9f2e8;
+      --confession-bg: #f9f2e8;
+      --bead-bg: linear-gradient(145deg, #e8cba4, #d4b28c);
+      --bead-text: #5a3a22;
+      --sin-item-bg: white;
+      --act-bg: #e8dbcbaa;
+    }
+    
+    /* Dark Mode */
+    body.dark-mode {
+      --bg-gradient-start: #1a1a2e;
+      --bg-gradient-end: #16213e;
+      --card-bg: #0f0f1a;
+      --header-bg: #1a1a2e;
+      --text-primary: #e8e8e8;
+      --text-secondary: #a0a0b0;
+      --border-color: #2a2a3e;
+      --accent: #c9a87b;
+      --accent-light: #d4b48c;
+      --mood-bg: #1a1a2e;
+      --mood-border: #2a2a3e;
+      --comfort-bg: #16213e;
+      --affirmation-bg: #1e2a3a;
+      --stress-bg: #1a1a2e;
+      --prayer-bg: linear-gradient(115deg, #1e2a3a 0%, #16213e 100%);
+      --widget-bg: #2a2a3e;
+      --mock-widget-bg: #0a0a15e0;
+      --footer-text: #6a6a7a;
+      --saint-bg: linear-gradient(115deg, #1e2a3a 0%, #16213e 100%);
+      --rosary-bg: #1a1a2e;
+      --confession-bg: #1a1a2e;
+      --bead-bg: linear-gradient(145deg, #5a4a3a, #4a3a2a);
+      --bead-text: #e8d8c8;
+      --sin-item-bg: #1e2a3a;
+      --act-bg: #2a3a4aaa;
+    }
+    
+    body {
+      background: linear-gradient(145deg, var(--bg-gradient-start) 0%, var(--bg-gradient-end) 100%);
+      font-family: 'Inter', sans-serif;
+      color: var(--text-primary);
+      padding: 24px 16px 40px;
+      min-height: 100vh;
+      transition: background 0.3s ease, color 0.2s ease;
+    }
+    
+    .app-container {
+      max-width: 600px;
+      margin: 0 auto;
+      background: var(--card-bg);
+      border-radius: 56px;
+      box-shadow: 0 25px 45px -12px rgba(0, 0, 0, 0.25);
+      overflow: hidden;
+      transition: background 0.3s ease;
+    }
+    
+    .header {
+      background: var(--header-bg);
+      padding: 28px 24px 20px;
+      border-bottom: 1px solid var(--border-color);
+      text-align: center;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .header-title { text-align: left; }
+    .header h1 { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 600; color: var(--accent); }
+    .header h1 i { color: var(--accent-light); font-size: 1.8rem; margin-right: 6px; }
+    .header p { font-size: 0.85rem; color: var(--text-secondary); margin-top: 4px; }
+    
+    /* Dark Mode Toggle Button */
+    .dark-toggle {
+      background: var(--mood-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 50px;
+      width: 48px;
+      height: 48px;
+      cursor: pointer;
+      font-size: 1.3rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: 0.2s;
+      color: var(--accent);
+    }
+    .dark-toggle:hover { transform: scale(1.05); background: var(--accent-light); color: white; }
 
     /* Liturgical Banner */
-    .liturgical-banner { background: linear-gradient(135deg, #f0e6d8 0%, #e8d9c8 100%); margin: 0 24px 16px; border-radius: 28px; padding: 14px 20px; text-align: center; border: 1px solid #e2cfbc; }
+    .liturgical-banner { background: var(--mood-bg); margin: 0 24px 16px; border-radius: 28px; padding: 14px 20px; text-align: center; border: 1px solid var(--border-color); }
     .liturgical-banner .season-icon { font-size: 1.6rem; margin-right: 8px; vertical-align: middle; }
-    .liturgical-banner .season-name { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; font-weight: 600; }
-    .liturgical-banner .season-detail { font-size: 0.75rem; color: #7a6248; margin-top: 6px; }
+    .liturgical-banner .season-name { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; font-weight: 600; color: var(--accent); }
+    .liturgical-banner .season-detail { font-size: 0.75rem; color: var(--text-secondary); margin-top: 6px; }
     .liturgical-banner .season-greeting { font-size: 0.85rem; font-weight: 500; margin-top: 8px; font-style: italic; }
-    body.season-advent .liturgical-banner { background: linear-gradient(135deg, #e8d8f0 0%, #d9c4e8 100%); border-color: #9b59b6; }
-    body.season-christmas .liturgical-banner { background: linear-gradient(135deg, #fff8e7 0%, #fff0d0 100%); border-color: #f1c40f; }
-    body.season-lent .liturgical-banner { background: linear-gradient(135deg, #e0d4e8 0%, #d4c4e0 100%); border-color: #8e44ad; }
-    body.season-easter .liturgical-banner { background: linear-gradient(135deg, #fff5e6 0%, #ffe8d4 100%); border-color: #f39c12; }
-    body.season-ordinary .liturgical-banner { background: linear-gradient(135deg, #e8f0e6 0%, #d8e4d4 100%); border-color: #27ae60; }
+    body.season-advent .liturgical-banner { background: var(--mood-bg); border-color: #9b59b6; }
+    body.season-christmas .liturgical-banner { border-color: #f1c40f; }
+    body.season-lent .liturgical-banner { border-color: #8e44ad; }
+    body.season-easter .liturgical-banner { border-color: #f39c12; }
 
     /* Saint Card */
-    .saint-card { background: linear-gradient(115deg, #f5ede3 0%, #efe2d4 100%); margin: 0 24px 20px; border-radius: 32px; padding: 18px 22px; border: 1px solid #e2cfbc; }
-    .saint-header { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; border-bottom: 1px solid #dcc9b6; padding-bottom: 8px; }
-    .saint-header i { font-size: 1.8rem; color: #b88b62; }
-    .saint-header h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 600; color: #5e3e2e; }
-    .saint-name { font-size: 1.2rem; font-weight: 700; color: #8b5a3a; }
-    .saint-feast { font-size: 0.7rem; text-transform: uppercase; background: #e2cfbc80; display: inline-block; padding: 3px 10px; border-radius: 50px; margin: 8px 0; }
-    .saint-bio { font-size: 0.85rem; line-height: 1.45; color: #4f3a2a; }
-    .saint-prayer { font-size: 0.8rem; font-style: italic; background: #ffffffaa; padding: 10px 14px; border-radius: 24px; margin-top: 12px; border-left: 3px solid #b88b62; }
+    .saint-card { background: var(--saint-bg); margin: 0 24px 20px; border-radius: 32px; padding: 18px 22px; border: 1px solid var(--border-color); }
+    .saint-header { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; border-bottom: 1px solid var(--border-color); padding-bottom: 8px; }
+    .saint-header i { font-size: 1.8rem; color: var(--accent-light); }
+    .saint-header h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 600; color: var(--accent); }
+    .saint-name { font-size: 1.2rem; font-weight: 700; color: var(--accent); }
+    .saint-feast { font-size: 0.7rem; text-transform: uppercase; background: var(--accent-light); display: inline-block; padding: 3px 10px; border-radius: 50px; margin: 8px 0; color: white; }
+    .saint-bio { font-size: 0.85rem; line-height: 1.45; color: var(--text-primary); }
+    .saint-prayer { font-size: 0.8rem; font-style: italic; background: var(--affirmation-bg); padding: 10px 14px; border-radius: 24px; margin-top: 12px; border-left: 3px solid var(--accent-light); }
 
     /* Rosary Tracker */
-    .rosary-section { background: #f9f2e8; margin: 0 24px 20px; border-radius: 36px; padding: 20px; border: 1px solid #e2cfbc; }
+    .rosary-section { background: var(--rosary-bg); margin: 0 24px 20px; border-radius: 36px; padding: 20px; border: 1px solid var(--border-color); }
     .rosary-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; }
-    .rosary-header h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; color: #7b583d; }
-    .mystery-badge { background: #9b6a4c; color: white; padding: 6px 14px; border-radius: 40px; font-size: 0.7rem; font-weight: 600; }
+    .rosary-header h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; color: var(--accent); }
+    .mystery-badge { background: var(--accent); color: white; padding: 6px 14px; border-radius: 40px; font-size: 0.7rem; font-weight: 600; }
     .rosary-beads { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin: 20px 0; max-height: 280px; overflow-y: auto; padding: 8px 4px; }
-    .bead { width: 48px; height: 48px; border-radius: 50%; background: linear-gradient(145deg, #e8cba4, #d4b28c); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s; box-shadow: 0 4px 8px rgba(0,0,0,0.1); font-size: 0.7rem; font-weight: bold; color: #5a3a22; border: 2px solid #f5e2ca; }
-    .bead.prayed { background: linear-gradient(145deg, #b88b62, #9b6a4c); color: white; opacity: 0.7; text-decoration: line-through; }
+    .bead { width: 48px; height: 48px; border-radius: 50%; background: var(--bead-bg); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s; box-shadow: 0 4px 8px rgba(0,0,0,0.1); font-size: 0.7rem; font-weight: bold; color: var(--bead-text); border: 2px solid var(--border-color); }
+    .bead.prayed { background: var(--accent); color: white; opacity: 0.7; text-decoration: line-through; }
     .bead.ourfather { background: linear-gradient(145deg, #d4a373, #b87333); width: 56px; height: 56px; }
     .bead:hover { transform: scale(1.05); }
     .rosary-controls { display: flex; gap: 12px; justify-content: center; margin-top: 16px; }
-    .rosary-btn { background: #e3d2c0; border: none; padding: 8px 18px; border-radius: 40px; font-size: 0.75rem; cursor: pointer; }
-    .completion-message { text-align: center; font-size: 0.8rem; margin-top: 12px; padding: 10px; background: #e8dbcbaa; border-radius: 40px; }
+    .rosary-btn { background: var(--accent-light); border: none; padding: 8px 18px; border-radius: 40px; font-size: 0.75rem; cursor: pointer; color: white; }
+    .completion-message { text-align: center; font-size: 0.8rem; margin-top: 12px; padding: 10px; background: var(--act-bg); border-radius: 40px; }
 
-    /* #5 CONFESSION SECTION */
-    .confession-section { background: #f9f2e8; margin: 0 24px 20px; border-radius: 36px; padding: 20px; border: 1px solid #e2cfbc; }
+    /* Confession Section */
+    .confession-section { background: var(--confession-bg); margin: 0 24px 20px; border-radius: 36px; padding: 20px; border: 1px solid var(--border-color); }
     .confession-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; }
-    .confession-header h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; color: #7b583d; }
+    .confession-header h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; color: var(--accent); }
     .examination-list { max-height: 400px; overflow-y: auto; margin: 16px 0; }
-    .sin-item { background: white; border-radius: 20px; padding: 14px; margin-bottom: 12px; border: 1px solid #eddccf; }
+    .sin-item { background: var(--sin-item-bg); border-radius: 20px; padding: 14px; margin-bottom: 12px; border: 1px solid var(--border-color); }
     .sin-checkbox { display: flex; align-items: flex-start; gap: 12px; cursor: pointer; }
-    .sin-checkbox input { width: 20px; height: 20px; margin-top: 2px; cursor: pointer; accent-color: #9b6a4c; }
-    .sin-text { flex: 1; font-size: 0.85rem; color: #4f3a2a; line-height: 1.4; }
-    .sin-notes { width: 100%; margin-top: 10px; padding: 8px 12px; border: 1px solid #eddccf; border-radius: 16px; font-size: 0.75rem; font-family: 'Inter', sans-serif; resize: vertical; background: #fffef7; }
-    .sin-notes:focus { outline: none; border-color: #b88b62; }
-    .act-of-contrition { background: #e8dbcbaa; border-radius: 24px; padding: 16px; margin: 16px 0; text-align: center; font-style: italic; font-size: 0.85rem; }
+    .sin-checkbox input { width: 20px; height: 20px; margin-top: 2px; cursor: pointer; accent-color: var(--accent); }
+    .sin-text { flex: 1; font-size: 0.85rem; color: var(--text-primary); line-height: 1.4; }
+    .sin-notes { width: 100%; margin-top: 10px; padding: 8px 12px; border: 1px solid var(--border-color); border-radius: 16px; font-size: 0.75rem; font-family: 'Inter', sans-serif; resize: vertical; background: var(--comfort-bg); color: var(--text-primary); }
+    .act-of-contrition { background: var(--act-bg); border-radius: 24px; padding: 16px; margin: 16px 0; text-align: center; font-style: italic; font-size: 0.85rem; }
     .confession-buttons { display: flex; gap: 12px; justify-content: center; margin-top: 12px; }
-    .confession-btn { background: #9b6a4c; color: white; border: none; padding: 10px 20px; border-radius: 40px; font-size: 0.8rem; cursor: pointer; transition: 0.2s; }
-    .confession-btn.reset { background: #d4b48c; color: #3e2a1a; }
-    .confession-btn:hover { opacity: 0.9; transform: scale(0.98); }
+    .confession-btn { background: var(--accent); color: white; border: none; padding: 10px 20px; border-radius: 40px; font-size: 0.8rem; cursor: pointer; transition: 0.2s; }
+    .confession-btn.reset { background: var(--text-secondary); }
+    .confession-btn:hover { opacity: 0.9; }
 
     /* Mood & Comfort */
-    .mood-section { background: #fef9f2; margin: 20px 24px 0; border-radius: 36px; padding: 20px; border: 1px solid #f5e9dd; }
-    .section-title { font-weight: 600; font-size: 1rem; color: #5e3e2e; display: flex; align-items: center; gap: 10px; margin-bottom: 18px; }
+    .mood-section { background: var(--mood-bg); margin: 20px 24px 0; border-radius: 36px; padding: 20px; border: 1px solid var(--border-color); }
+    .section-title { font-weight: 600; font-size: 1rem; color: var(--accent); display: flex; align-items: center; gap: 10px; margin-bottom: 18px; }
     .mood-grid { display: flex; flex-wrap: wrap; gap: 12px; }
-    .mood-btn { flex: 1; min-width: 70px; background: white; border: 1px solid #eddccf; border-radius: 80px; padding: 10px 0; display: flex; flex-direction: column; align-items: center; gap: 6px; font-size: 0.8rem; cursor: pointer; }
-    .mood-btn i { font-size: 1.5rem; color: #b88b62; }
-    .mood-btn.active { background: #e7d8ca; border-color: #b88b62; }
+    .mood-btn { flex: 1; min-width: 70px; background: var(--comfort-bg); border: 1px solid var(--border-color); border-radius: 80px; padding: 10px 0; display: flex; flex-direction: column; align-items: center; gap: 6px; font-size: 0.8rem; cursor: pointer; color: var(--text-primary); }
+    .mood-btn i { font-size: 1.5rem; color: var(--accent-light); }
+    .mood-btn.active { background: var(--accent-light); border-color: var(--accent); color: white; }
+    .mood-btn.active i { color: white; }
 
-    .comfort-card { background: #ffffff; margin: 20px 24px; border-radius: 44px; padding: 32px 24px; border: 1px solid #f2e7dd; position: relative; }
-    .verse-text { font-family: 'Cormorant Garamond', serif; font-size: 1.7rem; font-weight: 500; text-align: center; font-style: italic; }
-    .verse-ref { text-align: center; font-size: 0.85rem; color: #b07d56; margin: 12px 0 20px; }
-    .affirmation-text { background: #fdf7ef; padding: 16px; border-radius: 32px; text-align: center; }
-    .favorite-btn { position: absolute; top: 20px; right: 20px; background: none; border: none; font-size: 1.6rem; cursor: pointer; color: #d4b48c; transition: 0.2s; }
+    .comfort-card { background: var(--comfort-bg); margin: 20px 24px; border-radius: 44px; padding: 32px 24px; border: 1px solid var(--border-color); position: relative; }
+    .verse-text { font-family: 'Cormorant Garamond', serif; font-size: 1.7rem; font-weight: 500; text-align: center; font-style: italic; color: var(--accent); }
+    .verse-ref { text-align: center; font-size: 0.85rem; color: var(--text-secondary); margin: 12px 0 20px; }
+    .affirmation-text { background: var(--affirmation-bg); padding: 16px; border-radius: 32px; text-align: center; color: var(--text-primary); }
+    .favorite-btn { position: absolute; top: 20px; right: 20px; background: none; border: none; font-size: 1.6rem; cursor: pointer; color: var(--text-secondary); transition: 0.2s; }
     .favorite-btn:hover { transform: scale(1.1); }
     .favorite-btn.active { color: #e74c3c; }
-    .stress-relief { background: #faf3e9; border-radius: 28px; padding: 20px; margin-top: 20px; text-align: center; }
-    .breath-circle { width: 70px; height: 70px; border-radius: 50%; background: white; display: flex; align-items: center; justify-content: center; cursor: pointer; margin: 0 auto; }
+    .stress-relief { background: var(--stress-bg); border-radius: 28px; padding: 20px; margin-top: 20px; text-align: center; }
+    .breath-circle { width: 70px; height: 70px; border-radius: 50%; background: var(--comfort-bg); display: flex; align-items: center; justify-content: center; cursor: pointer; margin: 0 auto; border: 1px solid var(--border-color); }
 
     /* Favorites Section */
-    .favorites-section { background: #fef9f2; margin: 20px 24px; border-radius: 36px; padding: 20px; border: 1px solid #f5e9dd; }
+    .favorites-section { background: var(--mood-bg); margin: 20px 24px; border-radius: 36px; padding: 20px; border: 1px solid var(--border-color); }
     .favorites-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; }
-    .favorites-header h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; color: #7b583d; }
-    .favorites-count { background: #b88b62; color: white; padding: 4px 12px; border-radius: 30px; font-size: 0.7rem; }
+    .favorites-header h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; color: var(--accent); }
+    .favorites-count { background: var(--accent); color: white; padding: 4px 12px; border-radius: 30px; font-size: 0.7rem; }
     .favorites-list { max-height: 300px; overflow-y: auto; }
-    .favorite-item { background: white; border-radius: 24px; padding: 14px; margin-bottom: 12px; border: 1px solid #eddccf; position: relative; }
-    .favorite-verse { font-family: 'Cormorant Garamond', serif; font-size: 1rem; font-style: italic; color: #2e241d; }
-    .favorite-ref { font-size: 0.7rem; color: #b07d56; margin-top: 6px; }
+    .favorite-item { background: var(--comfort-bg); border-radius: 24px; padding: 14px; margin-bottom: 12px; border: 1px solid var(--border-color); position: relative; }
+    .favorite-verse { font-family: 'Cormorant Garamond', serif; font-size: 1rem; font-style: italic; color: var(--accent); }
+    .favorite-ref { font-size: 0.7rem; color: var(--text-secondary); margin-top: 6px; }
     .delete-fav { position: absolute; top: 12px; right: 12px; background: none; border: none; color: #e74c3c; cursor: pointer; font-size: 1rem; opacity: 0.6; }
     .delete-fav:hover { opacity: 1; }
-    .empty-favorites { text-align: center; color: #9b8978; padding: 30px; font-style: italic; }
+    .empty-favorites { text-align: center; color: var(--text-secondary); padding: 30px; font-style: italic; }
 
-    .interactive-spiritual { background: linear-gradient(115deg, #f9efe3 0%, #fff7ef 100%); border-radius: 32px; padding: 24px; margin: 20px 24px 28px; text-align: center; }
+    .interactive-spiritual { background: var(--prayer-bg); border-radius: 32px; padding: 24px; margin: 20px 24px 28px; text-align: center; border: 1px solid var(--border-color); }
+    .prayer-question { font-weight: 600; font-size: 1.05rem; color: var(--accent); }
     .prayer-buttons { display: flex; gap: 14px; justify-content: center; margin: 18px 0; }
-    .prayer-choice { background: white; border: none; padding: 8px 20px; border-radius: 60px; cursor: pointer; }
-    .prayer-response { margin-top: 14px; background: rgba(255,255,240,0.8); padding: 12px; border-radius: 28px; }
-    .widget-preview { background: #efe2d3; margin: 12px 24px 28px; border-radius: 48px; padding: 20px; text-align: center; }
-    .mock-widget { background: #2c2418e0; backdrop-filter: blur(12px); border-radius: 32px; padding: 16px; color: white; }
-    .footer-note { text-align: center; font-size: 0.7rem; color: #9b8978; padding: 10px 20px 28px; }
+    .prayer-choice { background: var(--comfort-bg); border: 1px solid var(--border-color); padding: 8px 20px; border-radius: 60px; cursor: pointer; color: var(--text-primary); }
+    .prayer-response { margin-top: 14px; background: var(--affirmation-bg); padding: 12px; border-radius: 28px; color: var(--text-primary); }
+    .widget-preview { background: var(--widget-bg); margin: 12px 24px 28px; border-radius: 48px; padding: 20px; text-align: center; border: 1px solid var(--border-color); }
+    .mock-widget { background: var(--mock-widget-bg); backdrop-filter: blur(12px); border-radius: 32px; padding: 16px; color: white; }
+    .footer-note { text-align: center; font-size: 0.7rem; color: var(--footer-text); padding: 10px 20px 28px; }
     button { background: none; border: none; }
     @media (max-width: 480px) { .verse-text { font-size: 1.4rem; } .bead { width: 42px; height: 42px; } .bead.ourfather { width: 48px; height: 48px; } }
   </style>
@@ -113,8 +216,13 @@
 <body>
 <div class="app-container">
   <div class="header">
-    <h1><i class="fas fa-cross"></i> Sanctuary</h1>
-    <p>catholic spiritual wellness · peace in every moment</p>
+    <div class="header-title">
+      <h1><i class="fas fa-cross"></i> Sanctuary</h1>
+      <p>catholic spiritual wellness · peace in every moment</p>
+    </div>
+    <button class="dark-toggle" id="darkModeToggle" aria-label="Toggle dark mode">
+      <i class="fas fa-moon"></i>
+    </button>
   </div>
 
   <!-- Liturgical Banner -->
@@ -138,7 +246,7 @@
     <div id="completionMessage" class="completion-message">✨ Tap a bead to pray ✨</div>
   </div>
 
-  <!-- #5 CONFESSION PREPARATION HELPER -->
+  <!-- Confession Preparation -->
   <div class="confession-section">
     <div class="confession-header"><h3><i class="fas fa-church"></i> Confession Preparation</h3><span style="font-size:0.7rem;">Examination of Conscience</span></div>
     <div id="examinationList" class="examination-list"></div>
@@ -146,7 +254,7 @@
     <div class="confession-buttons"><button class="confession-btn" id="saveConfessionBtn"><i class="fas fa-save"></i> Save Preparation</button><button class="confession-btn reset" id="resetConfessionBtn"><i class="fas fa-undo-alt"></i> Reset</button></div>
   </div>
 
-  <!-- Mood & Comfort Card with Favorite Button -->
+  <!-- Mood & Comfort Card -->
   <div class="mood-section"><div class="section-title"><i class="fas fa-heartbeat"></i> How is your heart today?</div>
     <div class="mood-grid" id="moodGrid">
       <button class="mood-btn" data-mood="anxious"><i class="fas fa-waveform"></i> Anxious</button>
@@ -184,6 +292,29 @@
 </div>
 
 <script>
+  // ========== DARK MODE TOGGLE ==========
+  function initDarkMode() {
+    const darkModeToggle = document.getElementById('darkModeToggle');
+    const isDarkMode = localStorage.getItem('sanctuary_darkMode') === 'true';
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    
+    if (isDarkMode || (!localStorage.getItem('sanctuary_darkMode') && prefersDark)) {
+      document.body.classList.add('dark-mode');
+      if (darkModeToggle) darkModeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+    } else {
+      if (darkModeToggle) darkModeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+    }
+    
+    if (darkModeToggle) {
+      darkModeToggle.addEventListener('click', () => {
+        document.body.classList.toggle('dark-mode');
+        const isNowDark = document.body.classList.contains('dark-mode');
+        localStorage.setItem('sanctuary_darkMode', isNowDark);
+        darkModeToggle.innerHTML = isNowDark ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+      });
+    }
+  }
+
   // ========== LITURGICAL CALENDAR ==========
   function getLiturgicalInfo() {
       const today = new Date(), year = today.getFullYear();
@@ -228,7 +359,7 @@
   function loadRosaryProgress() { const saved = localStorage.getItem("sanctuary_rosary"); if(saved) rosaryState.prayedBeads = JSON.parse(saved); else rosaryState.prayedBeads = []; buildRosaryBeads(); showCompletionMessage(); }
   function resetRosary() { rosaryState.prayedBeads = []; saveRosaryProgress(); buildRosaryBeads(); showCompletionMessage(); }
 
-  // ========== #5 CONFESSION PREPARATION ==========
+  // ========== CONFESSION PREPARATION ==========
   const examinationItems = [
     { id: 0, text: "I am the Lord your God. You shall not have strange gods before me. — Have I put anything before God? (money, pride, technology, relationships)" },
     { id: 1, text: "You shall not take the name of the Lord your God in vain. — Have I used God's name irreverently?" },
@@ -263,13 +394,13 @@
   const defaultC={verse:"Cast all your anxiety on him because he cares for you.",ref:"— 1 Peter 5:7",affirmation:"You are a beloved child of God.",stressTip:"Place your hand on your heart."};
   let breathInterval=null;
   function updateByMood(mood){ let d=contentLib[mood]||defaultC; currentVerse = { text: d.verse, ref: d.ref }; document.getElementById("verseText").innerText=`“${d.verse}”`; document.getElementById("verseRef").innerText=d.ref; document.getElementById("affirmationText").innerText=d.affirmation; updateFavoriteButton(checkIfCurrentIsFavorite()); let html=`<h4><i class="fas fa-spa"></i> quick comfort</h4><div class="breath-circle" id="breathCircle"><i class="fas fa-lungs"></i></div><div class="breath-text">Tap to breathe</div><div style="margin-top:10px;">✨ ${d.stressTip}</div>`; document.getElementById("stressReliefBlock").innerHTML=html; const newCircle=document.getElementById("breathCircle"); if(newCircle) newCircle.addEventListener("click",startBreathingExercise); document.getElementById("widgetVerse").innerHTML=`“${d.verse.substring(0,60)}”`; document.body.setAttribute("data-current-mood",mood); }
-  function startBreathingExercise(){ if(breathInterval){ clearInterval(breathInterval); breathInterval=null; const c=document.getElementById("breathCircle"); if(c)c.style.background="white"; return; } const circle=document.getElementById("breathCircle"); if(!circle)return; let step=0,durs=[4,2,6],interval; function updateUI(phase,secs){ if(phase==="inhale"){ circle.innerHTML=`<i class="fas fa-arrow-up"></i><span> ${secs}s</span>`; circle.style.background="#d9cdb8"; } else if(phase==="hold"){ circle.innerHTML=`<i class="fas fa-pause"></i><span> ${secs}s</span>`; circle.style.background="#cbbca4"; } else{ circle.innerHTML=`<i class="fas fa-arrow-down"></i><span> ${secs}s</span>`; circle.style.background="#b8a68b"; } } function runPhase(idx){ let duration=durs[idx],start=Date.now(),phaseName=idx===0?"inhale":(idx===1?"hold":"exhale"); function tick(){ let elapsed=Math.floor((Date.now()-start)/1000),left=Math.max(0,duration-elapsed); updateUI(phaseName,left); if(elapsed>=duration){ clearInterval(interval); if(idx===0)runPhase(1); else if(idx===1)runPhase(2); else{ circle.innerHTML=`<i class="fas fa-lungs"></i>`; circle.style.background="white"; clearInterval(breathInterval); breathInterval=null; } } } interval=setInterval(tick,200); breathInterval=interval; tick(); } if(breathInterval)clearInterval(breathInterval); runPhase(0); }
+  function startBreathingExercise(){ if(breathInterval){ clearInterval(breathInterval); breathInterval=null; const c=document.getElementById("breathCircle"); if(c)c.style.background="var(--comfort-bg)"; return; } const circle=document.getElementById("breathCircle"); if(!circle)return; let step=0,durs=[4,2,6],interval; function updateUI(phase,secs){ if(phase==="inhale"){ circle.innerHTML=`<i class="fas fa-arrow-up"></i><span> ${secs}s</span>`; circle.style.background="#d9cdb8"; } else if(phase==="hold"){ circle.innerHTML=`<i class="fas fa-pause"></i><span> ${secs}s</span>`; circle.style.background="#cbbca4"; } else{ circle.innerHTML=`<i class="fas fa-arrow-down"></i><span> ${secs}s</span>`; circle.style.background="#b8a68b"; } } function runPhase(idx){ let duration=durs[idx],start=Date.now(),phaseName=idx===0?"inhale":(idx===1?"hold":"exhale"); function tick(){ let elapsed=Math.floor((Date.now()-start)/1000),left=Math.max(0,duration-elapsed); updateUI(phaseName,left); if(elapsed>=duration){ clearInterval(interval); if(idx===0)runPhase(1); else if(idx===1)runPhase(2); else{ circle.innerHTML=`<i class="fas fa-lungs"></i>`; circle.style.background="var(--comfort-bg)"; clearInterval(breathInterval); breathInterval=null; } } } interval=setInterval(tick,200); breathInterval=interval; tick(); } if(breathInterval)clearInterval(breathInterval); runPhase(0); }
   function initMood(){ const btns=document.querySelectorAll(".mood-btn"); btns.forEach(b=>b.addEventListener("click",()=>{ btns.forEach(bb=>bb.classList.remove("active")); b.classList.add("active"); updateByMood(b.getAttribute("data-mood")); document.body.setAttribute("data-current-mood",b.getAttribute("data-mood")); document.getElementById("prayerResponse").innerHTML=`🙏 You chose "${b.getAttribute("data-mood")}" — select a prayer.`; })); const def=document.querySelector('.mood-btn[data-mood="grateful"]'); if(def)def.click(); }
   function setPrayers(){ document.querySelectorAll(".prayer-choice").forEach(btn=>{ btn.removeEventListener("click",prayHandler); btn.addEventListener("click",prayHandler); }); }
   function prayHandler(e){ const type=e.currentTarget.getAttribute("data-prayer"); let msg={intercession:"🕯️ Lord, grant Your peace.",thanksgiving:"🌻 With grateful hearts.",strength:"⚔️ Lord, be my rock."}[type]||"Amen."; const mood=document.body.getAttribute("data-current-mood")||"peaceful"; let suffix=mood==="anxious"?" May peace wash over my heart.":(mood==="lonely"?" Remind me I am never alone.":(mood==="grateful"?" I praise You.":(mood==="sad"?" Lift my weariness.":" Let this prayer rise."))); document.getElementById("prayerResponse").innerHTML=`✨ ${msg} ${suffix}`; }
 
   // ========== INITIALIZATION ==========
-  function init(){ applyLiturgicalInfo(); updateSaintOfDay(); loadRosaryProgress(); loadFavorites(); loadConfessionState(); document.getElementById("rosaryResetBtn").addEventListener("click",resetRosary); document.getElementById("rosarySaveBtn").addEventListener("click",()=>{ saveRosaryProgress(); document.getElementById("completionMessage").innerHTML="💾 Progress saved!"; setTimeout(()=>showCompletionMessage(),1500); }); document.getElementById("saveConfessionBtn").addEventListener("click",()=>{ saveConfessionState(); alert("✓ Confession preparation saved! May God bless your examination."); }); document.getElementById("resetConfessionBtn").addEventListener("click",resetConfession); document.getElementById("favoriteBtn").addEventListener("click",()=>{ if(checkIfCurrentIsFavorite()){ alert("This verse is already in your favorites!"); } else { addFavorite(currentVerse.text, currentVerse.ref); alert("❤️ Verse saved to favorites!"); } }); initMood(); setPrayers(); const bc=document.getElementById("breathCircle"); if(bc)bc.addEventListener("click",startBreathingExercise); }
+  function init(){ initDarkMode(); applyLiturgicalInfo(); updateSaintOfDay(); loadRosaryProgress(); loadFavorites(); loadConfessionState(); document.getElementById("rosaryResetBtn").addEventListener("click",resetRosary); document.getElementById("rosarySaveBtn").addEventListener("click",()=>{ saveRosaryProgress(); document.getElementById("completionMessage").innerHTML="💾 Progress saved!"; setTimeout(()=>showCompletionMessage(),1500); }); document.getElementById("saveConfessionBtn").addEventListener("click",()=>{ saveConfessionState(); alert("✓ Confession preparation saved! May God bless your examination."); }); document.getElementById("resetConfessionBtn").addEventListener("click",resetConfession); document.getElementById("favoriteBtn").addEventListener("click",()=>{ if(checkIfCurrentIsFavorite()){ alert("This verse is already in your favorites!"); } else { addFavorite(currentVerse.text, currentVerse.ref); alert("❤️ Verse saved to favorites!"); } }); initMood(); setPrayers(); const bc=document.getElementById("breathCircle"); if(bc)bc.addEventListener("click",startBreathingExercise); }
   init();
 </script>
 </body>

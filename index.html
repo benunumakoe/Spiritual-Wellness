@@ -51,6 +51,23 @@
     .rosary-btn { background: #e3d2c0; border: none; padding: 8px 18px; border-radius: 40px; font-size: 0.75rem; cursor: pointer; }
     .completion-message { text-align: center; font-size: 0.8rem; margin-top: 12px; padding: 10px; background: #e8dbcbaa; border-radius: 40px; }
 
+    /* #5 CONFESSION SECTION */
+    .confession-section { background: #f9f2e8; margin: 0 24px 20px; border-radius: 36px; padding: 20px; border: 1px solid #e2cfbc; }
+    .confession-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; }
+    .confession-header h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; color: #7b583d; }
+    .examination-list { max-height: 400px; overflow-y: auto; margin: 16px 0; }
+    .sin-item { background: white; border-radius: 20px; padding: 14px; margin-bottom: 12px; border: 1px solid #eddccf; }
+    .sin-checkbox { display: flex; align-items: flex-start; gap: 12px; cursor: pointer; }
+    .sin-checkbox input { width: 20px; height: 20px; margin-top: 2px; cursor: pointer; accent-color: #9b6a4c; }
+    .sin-text { flex: 1; font-size: 0.85rem; color: #4f3a2a; line-height: 1.4; }
+    .sin-notes { width: 100%; margin-top: 10px; padding: 8px 12px; border: 1px solid #eddccf; border-radius: 16px; font-size: 0.75rem; font-family: 'Inter', sans-serif; resize: vertical; background: #fffef7; }
+    .sin-notes:focus { outline: none; border-color: #b88b62; }
+    .act-of-contrition { background: #e8dbcbaa; border-radius: 24px; padding: 16px; margin: 16px 0; text-align: center; font-style: italic; font-size: 0.85rem; }
+    .confession-buttons { display: flex; gap: 12px; justify-content: center; margin-top: 12px; }
+    .confession-btn { background: #9b6a4c; color: white; border: none; padding: 10px 20px; border-radius: 40px; font-size: 0.8rem; cursor: pointer; transition: 0.2s; }
+    .confession-btn.reset { background: #d4b48c; color: #3e2a1a; }
+    .confession-btn:hover { opacity: 0.9; transform: scale(0.98); }
+
     /* Mood & Comfort */
     .mood-section { background: #fef9f2; margin: 20px 24px 0; border-radius: 36px; padding: 20px; border: 1px solid #f5e9dd; }
     .section-title { font-weight: 600; font-size: 1rem; color: #5e3e2e; display: flex; align-items: center; gap: 10px; margin-bottom: 18px; }
@@ -63,16 +80,13 @@
     .verse-text { font-family: 'Cormorant Garamond', serif; font-size: 1.7rem; font-weight: 500; text-align: center; font-style: italic; }
     .verse-ref { text-align: center; font-size: 0.85rem; color: #b07d56; margin: 12px 0 20px; }
     .affirmation-text { background: #fdf7ef; padding: 16px; border-radius: 32px; text-align: center; }
-    
-    /* #4 FAVORITE BUTTON */
     .favorite-btn { position: absolute; top: 20px; right: 20px; background: none; border: none; font-size: 1.6rem; cursor: pointer; color: #d4b48c; transition: 0.2s; }
     .favorite-btn:hover { transform: scale(1.1); }
     .favorite-btn.active { color: #e74c3c; }
-    
     .stress-relief { background: #faf3e9; border-radius: 28px; padding: 20px; margin-top: 20px; text-align: center; }
     .breath-circle { width: 70px; height: 70px; border-radius: 50%; background: white; display: flex; align-items: center; justify-content: center; cursor: pointer; margin: 0 auto; }
 
-    /* #4 FAVORITES SECTION */
+    /* Favorites Section */
     .favorites-section { background: #fef9f2; margin: 20px 24px; border-radius: 36px; padding: 20px; border: 1px solid #f5e9dd; }
     .favorites-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; }
     .favorites-header h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; color: #7b583d; }
@@ -124,6 +138,14 @@
     <div id="completionMessage" class="completion-message">✨ Tap a bead to pray ✨</div>
   </div>
 
+  <!-- #5 CONFESSION PREPARATION HELPER -->
+  <div class="confession-section">
+    <div class="confession-header"><h3><i class="fas fa-church"></i> Confession Preparation</h3><span style="font-size:0.7rem;">Examination of Conscience</span></div>
+    <div id="examinationList" class="examination-list"></div>
+    <div class="act-of-contrition" id="actOfContrition">💔 <strong>Act of Contrition</strong><br>O my God, I am heartily sorry for having offended Thee, and I detest all my sins because I dread the loss of heaven and the pains of hell, but most of all because they offend Thee, my God, who art all good and deserving of all my love. I firmly resolve, with the help of Thy grace, to confess my sins, to do penance, and to amend my life. Amen.</div>
+    <div class="confession-buttons"><button class="confession-btn" id="saveConfessionBtn"><i class="fas fa-save"></i> Save Preparation</button><button class="confession-btn reset" id="resetConfessionBtn"><i class="fas fa-undo-alt"></i> Reset</button></div>
+  </div>
+
   <!-- Mood & Comfort Card with Favorite Button -->
   <div class="mood-section"><div class="section-title"><i class="fas fa-heartbeat"></i> How is your heart today?</div>
     <div class="mood-grid" id="moodGrid">
@@ -147,9 +169,8 @@
     </div>
   </div>
 
-  <!-- #4 FAVORITES SECTION -->
-  <div class="favorites-section" id="favoritesSection">
-    <div class="favorites-header"><h3><i class="fas fa-bookmark"></i> My Favorite Verses</h3><span class="favorites-count" id="favoritesCount">0 saved</span></div>
+  <!-- Favorites Section -->
+  <div class="favorites-section"><div class="favorites-header"><h3><i class="fas fa-bookmark"></i> My Favorite Verses</h3><span class="favorites-count" id="favoritesCount">0 saved</span></div>
     <div id="favoritesList" class="favorites-list"><div class="empty-favorites">❤️ Tap the heart on any verse to save it here</div></div>
   </div>
 
@@ -207,10 +228,28 @@
   function loadRosaryProgress() { const saved = localStorage.getItem("sanctuary_rosary"); if(saved) rosaryState.prayedBeads = JSON.parse(saved); else rosaryState.prayedBeads = []; buildRosaryBeads(); showCompletionMessage(); }
   function resetRosary() { rosaryState.prayedBeads = []; saveRosaryProgress(); buildRosaryBeads(); showCompletionMessage(); }
 
-  // ========== #4 FAVORITES SYSTEM ==========
+  // ========== #5 CONFESSION PREPARATION ==========
+  const examinationItems = [
+    { id: 0, text: "I am the Lord your God. You shall not have strange gods before me. — Have I put anything before God? (money, pride, technology, relationships)" },
+    { id: 1, text: "You shall not take the name of the Lord your God in vain. — Have I used God's name irreverently?" },
+    { id: 2, text: "Remember to keep holy the Lord's Day. — Have I missed Mass on Sundays or Holy Days of Obligation?" },
+    { id: 3, text: "Honor your father and your mother. — Have I been disrespectful to my parents or neglected my duties to family?" },
+    { id: 4, text: "You shall not kill. — Have I harmed others physically, emotionally, or held hatred/anger in my heart?" },
+    { id: 5, text: "You shall not commit adultery. — Have I been unfaithful in thought or action, or used others impurely?" },
+    { id: 6, text: "You shall not steal. — Have I taken what does not belong to me or been dishonest?" },
+    { id: 7, text: "You shall not bear false witness. — Have I lied, gossiped, or damaged someone's reputation?" },
+    { id: 8, text: "You shall not covet your neighbor's wife. — Have I entertained impure desires or jealousy?" },
+    { id: 9, text: "You shall not covet your neighbor's goods. — Have I been envious of what others have?" }
+  ];
+  let confessionState = { checked: [], notes: {} };
+  function loadConfessionState() { const saved = localStorage.getItem("sanctuary_confession"); if(saved) { const parsed = JSON.parse(saved); confessionState.checked = parsed.checked || []; confessionState.notes = parsed.notes || {}; } else { confessionState.checked = []; confessionState.notes = {}; } renderExamination(); }
+  function saveConfessionState() { localStorage.setItem("sanctuary_confession", JSON.stringify({ checked: confessionState.checked, notes: confessionState.notes })); }
+  function renderExamination() { const container = document.getElementById("examinationList"); if(!container) return; container.innerHTML = examinationItems.map(item => `<div class="sin-item"><label class="sin-checkbox"><input type="checkbox" data-id="${item.id}" ${confessionState.checked.includes(item.id) ? 'checked' : ''}><span class="sin-text">${item.text}</span></label><textarea class="sin-notes" data-id="${item.id}" placeholder="Specific sins or notes for confession...">${confessionState.notes[item.id] || ''}</textarea></div>`).join(''); document.querySelectorAll('.sin-checkbox input').forEach(cb => { cb.addEventListener('change', (e) => { const id = parseInt(e.target.getAttribute('data-id')); if(e.target.checked) { if(!confessionState.checked.includes(id)) confessionState.checked.push(id); } else { confessionState.checked = confessionState.checked.filter(i => i !== id); } saveConfessionState(); }); }); document.querySelectorAll('.sin-notes').forEach(ta => { ta.addEventListener('input', (e) => { const id = parseInt(e.target.getAttribute('data-id')); confessionState.notes[id] = e.target.value; saveConfessionState(); }); }); }
+  function resetConfession() { confessionState.checked = []; confessionState.notes = {}; saveConfessionState(); renderExamination(); alert("🕯️ Confession preparation reset. May God guide your examination."); }
+
+  // ========== FAVORITES SYSTEM ==========
   let favorites = [];
   let currentVerse = { text: "", ref: "" };
-  
   function loadFavorites() { const saved = localStorage.getItem("sanctuary_favorites"); if(saved) favorites = JSON.parse(saved); else favorites = []; renderFavorites(); }
   function saveFavorites() { localStorage.setItem("sanctuary_favorites", JSON.stringify(favorites)); renderFavorites(); }
   function addFavorite(verseText, verseRef) { if(!favorites.some(f => f.text === verseText && f.ref === verseRef)) { favorites.unshift({ text: verseText, ref: verseRef, date: new Date().toISOString() }); saveFavorites(); updateFavoriteButton(true); } }
@@ -223,41 +262,14 @@
   const contentLib={ anxious:{verse:"Do not be anxious about anything. In every situation, present your requests to God.",ref:"— Philippians 4:6",affirmation:"God walks beside you.",stressTip:"Breathe and say 'Jesus, I trust in You.'"}, grateful:{verse:"Give thanks to the Lord, for he is good; his love endures forever.",ref:"— Psalm 118:1",affirmation:"Gratitude transforms the heart.",stressTip:"Offer a Glory Be."}, peaceful:{verse:"Peace I leave with you; my peace I give you.",ref:"— John 14:27",affirmation:"Rest in stillness.",stressTip:"Breathe deeply."}, lonely:{verse:"I am with you always, even to the end of the age.",ref:"— Matthew 28:20",affirmation:"You belong to God's family.",stressTip:"Light a virtual candle."}, sad:{verse:"The Lord is close to the brokenhearted.",ref:"— Psalm 34:18",affirmation:"Your tears are holy.",stressTip:"Pray for healing."} };
   const defaultC={verse:"Cast all your anxiety on him because he cares for you.",ref:"— 1 Peter 5:7",affirmation:"You are a beloved child of God.",stressTip:"Place your hand on your heart."};
   let breathInterval=null;
-  
-  function updateByMood(mood){ 
-      let d=contentLib[mood]||defaultC; 
-      currentVerse = { text: d.verse, ref: d.ref };
-      document.getElementById("verseText").innerText=`“${d.verse}”`; 
-      document.getElementById("verseRef").innerText=d.ref; 
-      document.getElementById("affirmationText").innerText=d.affirmation; 
-      updateFavoriteButton(checkIfCurrentIsFavorite());
-      let html=`<h4><i class="fas fa-spa"></i> quick comfort</h4><div class="breath-circle" id="breathCircle"><i class="fas fa-lungs"></i></div><div class="breath-text">Tap to breathe</div><div style="margin-top:10px;">✨ ${d.stressTip}</div>`; 
-      document.getElementById("stressReliefBlock").innerHTML=html; 
-      const newCircle=document.getElementById("breathCircle"); if(newCircle) newCircle.addEventListener("click",startBreathingExercise); 
-      document.getElementById("widgetVerse").innerHTML=`“${d.verse.substring(0,60)}”`; 
-      document.body.setAttribute("data-current-mood",mood); 
-  }
-  
+  function updateByMood(mood){ let d=contentLib[mood]||defaultC; currentVerse = { text: d.verse, ref: d.ref }; document.getElementById("verseText").innerText=`“${d.verse}”`; document.getElementById("verseRef").innerText=d.ref; document.getElementById("affirmationText").innerText=d.affirmation; updateFavoriteButton(checkIfCurrentIsFavorite()); let html=`<h4><i class="fas fa-spa"></i> quick comfort</h4><div class="breath-circle" id="breathCircle"><i class="fas fa-lungs"></i></div><div class="breath-text">Tap to breathe</div><div style="margin-top:10px;">✨ ${d.stressTip}</div>`; document.getElementById("stressReliefBlock").innerHTML=html; const newCircle=document.getElementById("breathCircle"); if(newCircle) newCircle.addEventListener("click",startBreathingExercise); document.getElementById("widgetVerse").innerHTML=`“${d.verse.substring(0,60)}”`; document.body.setAttribute("data-current-mood",mood); }
   function startBreathingExercise(){ if(breathInterval){ clearInterval(breathInterval); breathInterval=null; const c=document.getElementById("breathCircle"); if(c)c.style.background="white"; return; } const circle=document.getElementById("breathCircle"); if(!circle)return; let step=0,durs=[4,2,6],interval; function updateUI(phase,secs){ if(phase==="inhale"){ circle.innerHTML=`<i class="fas fa-arrow-up"></i><span> ${secs}s</span>`; circle.style.background="#d9cdb8"; } else if(phase==="hold"){ circle.innerHTML=`<i class="fas fa-pause"></i><span> ${secs}s</span>`; circle.style.background="#cbbca4"; } else{ circle.innerHTML=`<i class="fas fa-arrow-down"></i><span> ${secs}s</span>`; circle.style.background="#b8a68b"; } } function runPhase(idx){ let duration=durs[idx],start=Date.now(),phaseName=idx===0?"inhale":(idx===1?"hold":"exhale"); function tick(){ let elapsed=Math.floor((Date.now()-start)/1000),left=Math.max(0,duration-elapsed); updateUI(phaseName,left); if(elapsed>=duration){ clearInterval(interval); if(idx===0)runPhase(1); else if(idx===1)runPhase(2); else{ circle.innerHTML=`<i class="fas fa-lungs"></i>`; circle.style.background="white"; clearInterval(breathInterval); breathInterval=null; } } } interval=setInterval(tick,200); breathInterval=interval; tick(); } if(breathInterval)clearInterval(breathInterval); runPhase(0); }
-  
   function initMood(){ const btns=document.querySelectorAll(".mood-btn"); btns.forEach(b=>b.addEventListener("click",()=>{ btns.forEach(bb=>bb.classList.remove("active")); b.classList.add("active"); updateByMood(b.getAttribute("data-mood")); document.body.setAttribute("data-current-mood",b.getAttribute("data-mood")); document.getElementById("prayerResponse").innerHTML=`🙏 You chose "${b.getAttribute("data-mood")}" — select a prayer.`; })); const def=document.querySelector('.mood-btn[data-mood="grateful"]'); if(def)def.click(); }
-  
   function setPrayers(){ document.querySelectorAll(".prayer-choice").forEach(btn=>{ btn.removeEventListener("click",prayHandler); btn.addEventListener("click",prayHandler); }); }
   function prayHandler(e){ const type=e.currentTarget.getAttribute("data-prayer"); let msg={intercession:"🕯️ Lord, grant Your peace.",thanksgiving:"🌻 With grateful hearts.",strength:"⚔️ Lord, be my rock."}[type]||"Amen."; const mood=document.body.getAttribute("data-current-mood")||"peaceful"; let suffix=mood==="anxious"?" May peace wash over my heart.":(mood==="lonely"?" Remind me I am never alone.":(mood==="grateful"?" I praise You.":(mood==="sad"?" Lift my weariness.":" Let this prayer rise."))); document.getElementById("prayerResponse").innerHTML=`✨ ${msg} ${suffix}`; }
-  
+
   // ========== INITIALIZATION ==========
-  function init(){ 
-      applyLiturgicalInfo(); 
-      updateSaintOfDay(); 
-      loadRosaryProgress(); 
-      loadFavorites();
-      document.getElementById("rosaryResetBtn").addEventListener("click",resetRosary); 
-      document.getElementById("rosarySaveBtn").addEventListener("click",()=>{ saveRosaryProgress(); document.getElementById("completionMessage").innerHTML="💾 Progress saved!"; setTimeout(()=>showCompletionMessage(),1500); }); 
-      document.getElementById("favoriteBtn").addEventListener("click",()=>{ if(checkIfCurrentIsFavorite()){ alert("This verse is already in your favorites!"); } else { addFavorite(currentVerse.text, currentVerse.ref); alert("❤️ Verse saved to favorites!"); } });
-      initMood(); 
-      setPrayers(); 
-      const bc=document.getElementById("breathCircle"); if(bc)bc.addEventListener("click",startBreathingExercise); 
-  }
+  function init(){ applyLiturgicalInfo(); updateSaintOfDay(); loadRosaryProgress(); loadFavorites(); loadConfessionState(); document.getElementById("rosaryResetBtn").addEventListener("click",resetRosary); document.getElementById("rosarySaveBtn").addEventListener("click",()=>{ saveRosaryProgress(); document.getElementById("completionMessage").innerHTML="💾 Progress saved!"; setTimeout(()=>showCompletionMessage(),1500); }); document.getElementById("saveConfessionBtn").addEventListener("click",()=>{ saveConfessionState(); alert("✓ Confession preparation saved! May God bless your examination."); }); document.getElementById("resetConfessionBtn").addEventListener("click",resetConfession); document.getElementById("favoriteBtn").addEventListener("click",()=>{ if(checkIfCurrentIsFavorite()){ alert("This verse is already in your favorites!"); } else { addFavorite(currentVerse.text, currentVerse.ref); alert("❤️ Verse saved to favorites!"); } }); initMood(); setPrayers(); const bc=document.getElementById("breathCircle"); if(bc)bc.addEventListener("click",startBreathingExercise); }
   init();
 </script>
 </body>

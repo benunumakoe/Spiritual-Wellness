@@ -1,4 +1,14 @@
-<style>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Sanctuary: Catholic Spiritual Wellness</title>
+  <!-- Google Fonts for aesthetic typography -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+  <!-- Font Awesome 6 (free icons) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
     * {
       margin: 0;
       padding: 0;
@@ -13,17 +23,19 @@
       min-height: 100vh;
     }
 
-    /* app container */
+    /* main app container — mimics a beautiful mobile widget card */
     .app-container {
       max-width: 600px;
       margin: 0 auto;
       background: #fffef7;
       border-radius: 56px;
-      box-shadow: 0 25px 45px -12px rgba(0, 0, 0, 0.25);
+      box-shadow: 0 25px 45px -12px rgba(0, 0, 0, 0.25), 0 2px 6px rgba(0, 0, 0, 0.02);
       overflow: hidden;
+      backdrop-filter: blur(0px);
+      transition: all 0.2s ease;
     }
 
-    /* header */
+    /* header with faith-inspired details */
     .header {
       background: #fff9f0;
       padding: 28px 24px 20px;
@@ -31,10 +43,30 @@
       text-align: center;
     }
 
+    .header h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      font-weight: 600;
+      color: #9b6a4c;
+      letter-spacing: -0.3px;
+    }
+
+    .header h1 i {
+      color: #c9a87b;
+      font-size: 1.8rem;
+      margin-right: 6px;
+    }
+
+    .header p {
+      font-size: 0.85rem;
+      color: #7c6b58;
+      margin-top: 8px;
+      font-weight: 400;
+    }
+
     /* ========================================== */
-    /* 🔴 PASTE THE LITURGICAL CSS RIGHT HERE 🔴 */
+    /* LITURGICAL CALENDAR BANNER STYLES */
     /* ========================================== */
-    /* Liturgical Season Banner */
     .liturgical-banner {
         background: linear-gradient(135deg, #f0e6d8 0%, #e8d9c8 100%);
         margin: 0 24px 16px;
@@ -79,16 +111,651 @@
     body.season-easter .liturgical-banner { background: linear-gradient(135deg, #fff5e6 0%, #ffe8d4 100%); border-color: #f39c12; }
     body.season-ordinary .liturgical-banner { background: linear-gradient(135deg, #e8f0e6 0%, #d8e4d4 100%); border-color: #27ae60; }
     /* ========================================== */
-    /* 🔴 END OF LITURGICAL CSS 🔴 */
-    /* ========================================== */
 
-    /* rest of your existing CSS continues below */
-    .header h1 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 2rem;
-      font-weight: 600;
-      color: #9b6a4c;
+    /* mood selector card (emotional check-in) */
+    .mood-section {
+      background: #fef9f2;
+      margin: 20px 24px 0;
+      border-radius: 36px;
+      padding: 20px 20px 24px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+      border: 1px solid #f5e9dd;
     }
-    
-    /* ... the rest of your CSS ... */
-</style>
+
+    .section-title {
+      font-weight: 600;
+      font-size: 1rem;
+      color: #5e3e2e;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .section-title i {
+      font-size: 1.3rem;
+      color: #b88b62;
+    }
+
+    .mood-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: space-between;
+    }
+
+    .mood-btn {
+      flex: 1;
+      min-width: 70px;
+      background: white;
+      border: 1px solid #eddccf;
+      border-radius: 80px;
+      padding: 10px 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: #5a3e2c;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .mood-btn i {
+      font-size: 1.5rem;
+      color: #b88b62;
+    }
+
+    .mood-btn.active {
+      background: #e7d8ca;
+      border-color: #b88b62;
+      color: #4f2f1c;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    }
+
+    .mood-btn.active i {
+      color: #9b5e2c;
+    }
+
+    /* main content card (dynamic comfort) */
+    .comfort-card {
+      background: #ffffff;
+      margin: 20px 24px;
+      border-radius: 44px;
+      padding: 32px 24px;
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.05);
+      border: 1px solid #f2e7dd;
+      transition: all 0.25s;
+    }
+
+    .verse-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.7rem;
+      font-weight: 500;
+      line-height: 1.35;
+      color: #2e241d;
+      margin-bottom: 16px;
+      text-align: center;
+      font-style: italic;
+    }
+
+    .verse-ref {
+      text-align: center;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: #b07d56;
+      letter-spacing: 0.3px;
+      margin-bottom: 28px;
+    }
+
+    .affirmation-text {
+      font-size: 1rem;
+      font-weight: 400;
+      background: #fdf7ef;
+      padding: 16px 20px;
+      border-radius: 32px;
+      color: #5a4030;
+      margin: 20px 0 16px;
+      text-align: center;
+      border-left: 4px solid #dbbd9b;
+    }
+
+    .stress-relief {
+      background: #faf3e9;
+      border-radius: 28px;
+      padding: 20px;
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .stress-relief h4 {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #7b583d;
+      margin-bottom: 12px;
+    }
+
+    .breath-timer {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin: 12px 0 10px;
+    }
+
+    .breath-circle {
+      background: white;
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 1.3rem;
+      color: #9b6a4c;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+      cursor: pointer;
+      transition: all 0.1s;
+    }
+
+    .breath-circle i {
+      font-size: 1.8rem;
+    }
+
+    .breath-text {
+      font-size: 0.75rem;
+      color: #917a62;
+      margin-top: 6px;
+    }
+
+    /* interactive spiritual experience */
+    .interactive-spiritual {
+      background: linear-gradient(115deg, #f9efe3 0%, #fff7ef 100%);
+      border-radius: 32px;
+      padding: 24px;
+      margin: 20px 24px 28px;
+      text-align: center;
+    }
+
+    .prayer-question {
+      font-weight: 600;
+      font-size: 1.05rem;
+      color: #5c3f2b;
+    }
+
+    .prayer-buttons {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      margin: 18px 0;
+    }
+
+    .prayer-choice {
+      background: white;
+      border: none;
+      padding: 8px 20px;
+      border-radius: 60px;
+      font-weight: 500;
+      color: #7c5b40;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    }
+
+    .prayer-choice:hover {
+      background: #e3d2c0;
+      color: #3f2a1b;
+    }
+
+    .prayer-response {
+      margin-top: 14px;
+      font-size: 0.9rem;
+      font-style: italic;
+      background: rgba(255,255,240,0.8);
+      padding: 12px;
+      border-radius: 28px;
+      color: #7b4a2c;
+    }
+
+    /* widget preview section */
+    .widget-preview {
+      background: #efe2d3;
+      margin: 12px 24px 28px;
+      border-radius: 48px;
+      padding: 20px 20px;
+      text-align: center;
+      border: 1px solid #e2cfbc;
+    }
+
+    .widget-preview h3 {
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #6d4c33;
+    }
+
+    .mock-widget {
+      background: #2c2418e0;
+      backdrop-filter: blur(12px);
+      margin-top: 12px;
+      border-radius: 32px;
+      padding: 16px;
+      color: white;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .mock-widget .small-verse {
+      font-size: 0.9rem;
+      font-weight: 400;
+    }
+
+    .footer-note {
+      text-align: center;
+      font-size: 0.7rem;
+      color: #9b8978;
+      padding: 10px 20px 28px;
+    }
+
+    button {
+      background: none;
+      border: none;
+    }
+
+    @media (max-width: 480px) {
+      .verse-text {
+        font-size: 1.4rem;
+      }
+      .mood-btn {
+        font-size: 0.7rem;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="app-container">
+  <div class="header">
+    <h1><i class="fas fa-cross"></i> Sanctuary</h1>
+    <p>catholic spiritual wellness · peace in every moment</p>
+  </div>
+
+  <!-- LITURGICAL CALENDAR BANNER -->
+  <div class="liturgical-banner" id="liturgicalBanner">
+    <div>
+      <span class="season-icon" id="seasonIcon">⛪</span>
+      <span class="season-name" id="seasonName">Ordinary Time</span>
+    </div>
+    <div class="season-detail" id="seasonDetail">Week 1</div>
+    <div class="season-greeting" id="seasonGreeting">Walk with Christ in this holy season</div>
+  </div>
+
+  <!-- emotional state selector (daily check-in) -->
+  <div class="mood-section">
+    <div class="section-title"><i class="fas fa-heartbeat"></i> How is your heart today?</div>
+    <div class="mood-grid" id="moodGrid">
+      <button class="mood-btn" data-mood="anxious"><i class="fas fa-waveform"></i> Anxious</button>
+      <button class="mood-btn" data-mood="lonely"><i class="fas fa-cloud-moon"></i> Lonely</button>
+      <button class="mood-btn" data-mood="grateful"><i class="fas fa-hands-praying"></i> Grateful</button>
+      <button class="mood-btn" data-mood="sad"><i class="fas fa-leaf"></i> Weary</button>
+      <button class="mood-btn" data-mood="peaceful"><i class="fas fa-dove"></i> Peaceful</button>
+    </div>
+  </div>
+
+  <!-- dynamic comfort area: bible verse, affirmation, stress relief -->
+  <div class="comfort-card" id="comfortCard">
+    <div class="verse-text" id="verseText">"Come to me, all you who labor and are burdened, and I will give you rest."</div>
+    <div class="verse-ref" id="verseRef">— Matthew 11:28</div>
+    <div class="affirmation-text" id="affirmationText">You are held in God’s gentle love. Release your worries to the Sacred Heart.</div>
+    <div class="stress-relief" id="stressReliefBlock">
+      <h4><i class="fas fa-spa"></i> quick comfort · breath of peace</h4>
+      <div class="breath-timer">
+        <div class="breath-circle" id="breathCircle"><i class="fas fa-lungs"></i></div>
+      </div>
+      <div class="breath-text" id="breathInstruction">Tap the icon: Breathe in (4 sec) · Hold · Breathe out (6 sec)</div>
+    </div>
+  </div>
+
+  <!-- interactive spiritual experience: dynamic prayer choice -->
+  <div class="interactive-spiritual">
+    <div class="prayer-question"><i class="fas fa-praying-hands"></i>  interactive offering  <i class="fas fa-feather-alt"></i></div>
+    <div class="prayer-buttons">
+      <button class="prayer-choice" data-prayer="intercession">🙏 Prayer for peace</button>
+      <button class="prayer-choice" data-prayer="thanksgiving">✨ Prayer of gratitude</button>
+      <button class="prayer-choice" data-prayer="strength">⚡ Prayer for strength</button>
+    </div>
+    <div class="prayer-response" id="prayerResponse">Choose a prayer — receive a spiritual companion.</div>
+  </div>
+
+  <!-- lock screen widget preview (pretty aesthetics & daily verse) -->
+  <div class="widget-preview">
+    <h3><i class="fas fa-mobile-alt"></i> daily widget preview (iOS / android style)</h3>
+    <div class="mock-widget" id="widgetPreview">
+      <i class="fas fa-church" style="margin-right: 6px;"></i> Sanctuary
+      <div class="small-verse" id="widgetVerse">"The Lord is my shepherd; I shall not want."</div>
+    </div>
+  </div>
+  <div class="footer-note">
+    <i class="fas fa-gem"></i> every verse · catholic tradition · emotional wellness
+  </div>
+</div>
+
+<script>
+  // ============================================
+  // #1 LITURGICAL CALENDAR INTEGRATION
+  // ============================================
+  function getLiturgicalInfo() {
+      const today = new Date();
+      const year = today.getFullYear();
+      
+      // Helper: Easter Sunday (Anonymous Gregorian algorithm)
+      function getEasterDate(year) {
+          const a = year % 19;
+          const b = Math.floor(year / 100);
+          const c = year % 100;
+          const d = Math.floor(b / 4);
+          const e = b % 4;
+          const f = Math.floor((b + 8) / 25);
+          const g = Math.floor((b - f + 1) / 3);
+          const h = (19 * a + b - d - g + 15) % 30;
+          const i = Math.floor(c / 4);
+          const k = c % 4;
+          const l = (32 + 2 * e + 2 * i - h - k) % 7;
+          const m = Math.floor((a + 11 * h + 22 * l) / 451);
+          const month = Math.floor((h + l - 7 * m + 114) / 31);
+          const day = ((h + l - 7 * m + 114) % 31) + 1;
+          return new Date(year, month - 1, day);
+      }
+      
+      // Helper: Advent start (4th Sunday before Christmas, closest to Nov 30)
+      function getAdventStart(year) {
+          let advent = new Date(year, 10, 30);
+          let sundayCount = 0;
+          while (sundayCount < 4) {
+              if (advent.getDay() === 0) {
+                  sundayCount++;
+                  if (sundayCount === 4) break;
+              }
+              advent.setDate(advent.getDate() - 1);
+          }
+          return advent;
+      }
+      
+      const easter = getEasterDate(year);
+      const adventStart = getAdventStart(year);
+      const christmasStart = new Date(year, 11, 25);
+      const christmasEnd = new Date(year, 0, 10);
+      const lentStart = new Date(easter);
+      lentStart.setDate(easter.getDate() - 46);
+      const easterEnd = new Date(easter);
+      easterEnd.setDate(easter.getDate() + 49);
+      
+      let season = "ordinary";
+      let seasonDisplay = "Ordinary Time";
+      let icon = "🌿";
+      let detail = "";
+      let greeting = "";
+      
+      if (today >= adventStart && today < christmasStart) {
+          season = "advent";
+          seasonDisplay = "Advent";
+          icon = "🕯️";
+          const daysUntilChristmas = Math.ceil((christmasStart - today) / (1000 * 60 * 60 * 24));
+          const weekNumber = Math.floor((today - adventStart) / (1000 * 60 * 60 * 24 * 7)) + 1;
+          detail = `Week ${weekNumber} of Advent · ${daysUntilChristmas} days until Christmas`;
+          greeting = "Prepare your heart for the coming of the Lord. Maranatha!";
+      }
+      else if (today >= christmasStart || (today.getMonth() === 0 && today.getDate() <= 10)) {
+          season = "christmas";
+          seasonDisplay = "Christmas Season";
+          icon = "⭐";
+          let dayOfChristmas = today >= christmasStart ? today.getDate() - 24 : today.getDate() + 7;
+          detail = `Day ${dayOfChristmas} of Christmas · The Word became flesh`;
+          greeting = "Christ is born! Glorify Him! Rejoice in the Light of the World.";
+      }
+      else if (today >= lentStart && today < easter) {
+          season = "lent";
+          seasonDisplay = "Lent";
+          icon = "✝️";
+          const daysUntilEaster = Math.ceil((easter - today) / (1000 * 60 * 60 * 24));
+          const weekNumber = Math.floor((today - lentStart) / (1000 * 60 * 60 * 24 * 7)) + 1;
+          detail = `Week ${weekNumber} of Lent · ${daysUntilEaster} days until Easter`;
+          greeting = "Repent and believe in the Gospel. Prayer, fasting, and almsgiving.";
+      }
+      else if (today >= easter && today <= easterEnd) {
+          season = "easter";
+          seasonDisplay = "Easter Season";
+          icon = "🐣";
+          const dayOfEaster = Math.floor((today - easter) / (1000 * 60 * 60 * 24)) + 1;
+          detail = `Day ${dayOfEaster} of Easter · The Lord is Risen!`;
+          greeting = "Alleluia! He is Risen! Celebrate the victory of life over death.";
+      }
+      else {
+          season = "ordinary";
+          seasonDisplay = "Ordinary Time";
+          icon = "🌿";
+          let weekNumber = 1;
+          if (today > easterEnd) {
+              const daysAfterPentecost = Math.floor((today - easterEnd) / (1000 * 60 * 60 * 24));
+              weekNumber = Math.floor(daysAfterPentecost / 7) + 1;
+          } else if (today < adventStart && today > christmasEnd) {
+              const daysAfterChristmas = Math.floor((today - christmasEnd) / (1000 * 60 * 60 * 24));
+              weekNumber = Math.floor(daysAfterChristmas / 7) + 1;
+          }
+          detail = `Week ${weekNumber} of Ordinary Time · Growing in faith daily`;
+          greeting = "Walk with Christ in the rhythms of everyday life. Your ordinary moments are holy.";
+      }
+      
+      return { season, seasonDisplay, icon, detail, greeting };
+  }
+  
+  function applyLiturgicalInfo() {
+      const info = getLiturgicalInfo();
+      const seasonNameEl = document.getElementById("seasonName");
+      const seasonDetailEl = document.getElementById("seasonDetail");
+      const seasonGreetingEl = document.getElementById("seasonGreeting");
+      if (seasonNameEl) seasonNameEl.innerHTML = `${info.icon} ${info.seasonDisplay}`;
+      if (seasonDetailEl) seasonDetailEl.innerHTML = info.detail;
+      if (seasonGreetingEl) seasonGreetingEl.innerHTML = info.greeting;
+      document.body.classList.remove("season-advent", "season-christmas", "season-lent", "season-easter", "season-ordinary");
+      document.body.classList.add(`season-${info.season}`);
+      
+      // subtle comfort card border seasonal touch
+      const comfortCard = document.querySelector(".comfort-card");
+      if (comfortCard) {
+          switch(info.season) {
+              case "advent": comfortCard.style.borderLeft = "4px solid #9b59b6"; break;
+              case "christmas": comfortCard.style.borderLeft = "4px solid #f1c40f"; break;
+              case "lent": comfortCard.style.borderLeft = "4px solid #8e44ad"; break;
+              case "easter": comfortCard.style.borderLeft = "4px solid #f39c12"; break;
+              default: comfortCard.style.borderLeft = "4px solid #27ae60";
+          }
+      }
+  }
+
+  // ---------- CATHOLIC CONTENT DATABASE (mood based) ----------
+  const contentLibrary = {
+    anxious: {
+      verse: "Do not be anxious about anything, but in every situation, by prayer and petition, with thanksgiving, present your requests to God.",
+      ref: "— Philippians 4:6",
+      affirmation: "You are not alone. God walks beside you in every worry. Take a slow breath and surrender your fears.",
+      stressTip: "🌿 Anxiety release prayer: 'Jesus, I trust in You.' Repeat slowly three times."
+    },
+    lonely: {
+      verse: "I am with you always, even to the end of the age.",
+      ref: "— Matthew 28:20",
+      affirmation: "Your loneliness is seen by a loving God. You belong to His family, and you are never forgotten.",
+      stressTip: "🕯️ Light a virtual candle: whisper 'Lord, let me feel your nearness.'"
+    },
+    grateful: {
+      verse: "Give thanks to the Lord, for he is good; his love endures forever.",
+      ref: "— Psalm 118:1",
+      affirmation: "Gratitude transforms the heart. Today, count three small blessings: the air, the light, His mercy.",
+      stressTip: "🙌 Write a mental gratitude list — offer a 'Glory Be' for each."
+    },
+    sad: {
+      verse: "The Lord is close to the brokenhearted and saves those who are crushed in spirit.",
+      ref: "— Psalm 34:18",
+      affirmation: "Your tears are holy. Allow yourself to rest in God's gentle embrace, He heals gently.",
+      stressTip: "💧 Prayer of lament: 'Lord, I feel heavy, but I trust Your healing hand.'"
+    },
+    peaceful: {
+      verse: "Peace I leave with you; my peace I give you.",
+      ref: "— John 14:27",
+      affirmation: "You abide in stillness. Let this peace flow outward to everyone you meet.",
+      stressTip: "🕊️ Breathe deeply and offer a 'Hail Mary' for global peace."
+    }
+  };
+  const defaultContent = {
+    verse: "Cast all your anxiety on him because he cares for you.",
+    ref: "— 1 Peter 5:7",
+    affirmation: "You are a beloved child of God. Rest in that truth right now.",
+    stressTip: "😌 Place your hand over your heart. Breathe in God's love, breathe out tension."
+  };
+
+  const prayerResponses = {
+    intercession: "🕯️ Lord, grant Your peace to all who struggle today. Shelter them under Your wings. Amen. — *St. Francis Prayer*",
+    thanksgiving: "🌻 With grateful hearts we praise You, Father. For every breath and kindness, we give You thanks. Amen. — *from Eucharistic Prayer*",
+    strength: "⚔️ Lord, be my rock and fortress. When I feel weak, let Your grace be sufficient. Amen. — *based on Ephesians 6:10*"
+  };
+
+  // DOM references
+  const verseEl = document.getElementById("verseText");
+  const verseRefEl = document.getElementById("verseRef");
+  const affirmationEl = document.getElementById("affirmationText");
+  const stressReliefBlock = document.getElementById("stressReliefBlock");
+  const prayerResponseEl = document.getElementById("prayerResponse");
+  const widgetVerseSpan = document.getElementById("widgetVerse");
+  
+  let breathInterval = null;
+
+  function updateByMood(mood) {
+    let data = contentLibrary[mood] || defaultContent;
+    verseEl.innerText = `“${data.verse}”`;
+    verseRefEl.innerText = data.ref;
+    affirmationEl.innerText = data.affirmation;
+    let stressHtml = `<h4><i class="fas fa-spa"></i> quick comfort · breath of peace</h4>
+      <div class="breath-timer">
+        <div class="breath-circle" id="breathCircle"><i class="fas fa-lungs"></i></div>
+      </div>
+      <div class="breath-text" id="breathInstruction">Tap the icon: Breathe in (4 sec) · Hold · Breathe out (6 sec)</div>
+      <div style="margin-top: 14px; font-size: 0.85rem; background: #f0e3d6; border-radius: 24px; padding: 8px;">✨ ${data.stressTip}</div>`;
+    stressReliefBlock.innerHTML = stressHtml;
+    const newBreathCircle = document.getElementById("breathCircle");
+    if (newBreathCircle) newBreathCircle.addEventListener("click", startBreathingExercise);
+    let shortVerse = data.verse.length > 70 ? data.verse.substring(0, 65) + "…" : data.verse;
+    widgetVerseSpan.innerText = `“${shortVerse}” — ${data.ref.replace("—", "")}`;
+    document.body.setAttribute("data-current-mood", mood);
+  }
+
+  function startBreathingExercise() {
+    if (breathInterval) {
+      clearInterval(breathInterval);
+      breathInterval = null;
+      const circle = document.getElementById("breathCircle");
+      if (circle) circle.style.background = "white";
+      const instr = document.getElementById("breathInstruction");
+      if (instr) instr.innerText = "Tap again to restart: Breathe in (4s) · Hold (2s) · Breathe out (6s)";
+      return;
+    }
+    const circle = document.getElementById("breathCircle");
+    const instr = document.getElementById("breathInstruction");
+    if (!circle) return;
+    let phaseIndex = 0;
+    let phaseDuration = [4, 2, 6];
+    let currentStep = 0;
+    let interval;
+    function updateUI(phase, secs) {
+      if (phase === "inhale") {
+        circle.innerHTML = `<i class="fas fa-arrow-up"></i><span style="font-size:0.9rem;"> ${secs}s</span>`;
+        circle.style.background = "#d9cdb8";
+        if (instr) instr.innerText = `Inhale God's peace... (${secs}s)`;
+      } else if (phase === "hold") {
+        circle.innerHTML = `<i class="fas fa-pause"></i><span style="font-size:0.9rem;"> ${secs}s</span>`;
+        circle.style.background = "#cbbca4";
+        if (instr) instr.innerText = `Hold & trust... (${secs}s)`;
+      } else if (phase === "exhale") {
+        circle.innerHTML = `<i class="fas fa-arrow-down"></i><span style="font-size:0.9rem;"> ${secs}s</span>`;
+        circle.style.background = "#b8a68b";
+        if (instr) instr.innerText = `Exhale worries... (${secs}s)`;
+      }
+    }
+    function runPhase(step) {
+      let duration = phaseDuration[step];
+      let start = Date.now();
+      let phaseName = step === 0 ? "inhale" : (step === 1 ? "hold" : "exhale");
+      function tick() {
+        let elapsed = Math.floor((Date.now() - start) / 1000);
+        let left = Math.max(0, duration - elapsed);
+        updateUI(phaseName, left);
+        if (elapsed >= duration) {
+          clearInterval(interval);
+          if (step === 0) runPhase(1);
+          else if (step === 1) runPhase(2);
+          else {
+            if (instr) instr.innerText = "Breath complete. Tap lungs again to begin a new calming breath prayer.";
+            circle.innerHTML = `<i class="fas fa-lungs"></i>`;
+            circle.style.background = "white";
+            clearInterval(breathInterval);
+            breathInterval = null;
+          }
+        }
+      }
+      interval = setInterval(tick, 200);
+      breathInterval = interval;
+      tick();
+    }
+    if (breathInterval) clearInterval(breathInterval);
+    runPhase(0);
+  }
+
+  function initMoodSelector() {
+    const moodBtns = document.querySelectorAll(".mood-btn");
+    moodBtns.forEach(btn => {
+      btn.addEventListener("click", () => {
+        moodBtns.forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        const mood = btn.getAttribute("data-mood");
+        updateByMood(mood);
+        document.body.setAttribute("data-current-mood", mood);
+        prayerResponseEl.innerHTML = `🙏 You chose "${mood}" — select a prayer for deeper connection.`;
+      });
+    });
+    const defaultBtn = document.querySelector('.mood-btn[data-mood="grateful"]');
+    if (defaultBtn) defaultBtn.click();
+  }
+
+  function setPrayerInteraction() {
+    const btns = document.querySelectorAll(".prayer-choice");
+    btns.forEach(btn => {
+      btn.removeEventListener("click", prayerHandler);
+      btn.addEventListener("click", prayerHandler);
+    });
+  }
+  
+  function prayerHandler(e) {
+    const prayerType = e.currentTarget.getAttribute("data-prayer");
+    let responseMsg = prayerResponses[prayerType] || "Lord, hear our prayer. Amen.";
+    const currentMood = document.body.getAttribute("data-current-mood") || "peaceful";
+    let moodSuffix = "";
+    if (currentMood === "anxious") moodSuffix = " May Your peace wash over my anxious heart. ";
+    else if (currentMood === "lonely") moodSuffix = " Remind me that I am never alone. ";
+    else if (currentMood === "grateful") moodSuffix = " I praise You with a grateful soul. ";
+    else if (currentMood === "sad") moodSuffix = " Lift my weariness, O Lord. ";
+    else moodSuffix = " Let this prayer rise like incense. ";
+    prayerResponseEl.innerHTML = `✨ ${responseMsg} ${moodSuffix} <i class="fas fa-feather-alt"></i>`;
+  }
+
+  function init() {
+    applyLiturgicalInfo();
+    initMoodSelector();
+    setPrayerInteraction();
+    const initialBreath = document.getElementById("breathCircle");
+    if (initialBreath) initialBreath.addEventListener("click", startBreathingExercise);
+  }
+  init();
+</script>
+</body>
+</html>
